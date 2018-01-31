@@ -169,6 +169,8 @@ void report_feedback_message(uint8_t message_code)
 // Welcome message
 void report_init_message()
 {
+  printPgmString(PSTR("\r\nHello! UID: "));
+  print_uint32_base10(settings.uid);
   printPgmString(PSTR("\r\nGrbl " GRBL_VERSION " ['$' for help]\r\n"));
 }
 

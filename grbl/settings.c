@@ -20,6 +20,7 @@
 */
 
 #include "grbl.h"
+#include "tinymt32.h"
 
 settings_t settings;
 
@@ -106,6 +107,12 @@ void settings_restore(uint8_t restore_flag) {
     settings.max_travel[X_AXIS] = (-DEFAULT_X_MAX_TRAVEL);
     settings.max_travel[Y_AXIS] = (-DEFAULT_Y_MAX_TRAVEL);
     settings.max_travel[Z_AXIS] = (-DEFAULT_Z_MAX_TRAVEL);
+
+    // generate UID
+    tinymt32_t uidState;
+    uint32_t uidSeed = time(0);
+    tinymt32_init(&uidState, uidSeed);
+    settings.uid =  tinymt32_generate_uint32(&uidState);
 
     write_global_settings();
   }
